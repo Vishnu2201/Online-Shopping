@@ -11,6 +11,8 @@
    
    ">
 	<context:component-scan base-package="vis.com.onlineshopping.controller" />
+	<context:component-scan base-package="vis.com.shoppingbackend.daoimpl" />
+	
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
