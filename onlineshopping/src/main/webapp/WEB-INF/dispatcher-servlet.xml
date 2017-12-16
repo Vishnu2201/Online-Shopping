@@ -10,8 +10,8 @@
     http://www.springframework.org/schema/mvc/spring-mvc.xsd      
    
    ">
-	<context:component-scan base-package="vis.com.onlineshopping.controller" />
-	<context:component-scan base-package="vis.com.shoppingbackend.daoimpl" />
+	<context:component-scan base-package="vis.com.onlineshopping" />
+	<context:component-scan base-package="vis.com.shoppingbackend" />
 	
 
 	<bean id="viewResolver"
