@@ -87,7 +87,7 @@
 			</c:if>
 
 
-			<!-- Load only when user clicks contact -->
+			<!-- Load only when user clicks all products -->
 
 			<c:if
 				test="${userClickAllProducts == true or userClickCategoryProducts == true }">

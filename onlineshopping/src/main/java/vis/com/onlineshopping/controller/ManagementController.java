@@ -51,7 +51,7 @@ public class ManagementController {
 
 		mv.addObject("product", nProduct);
 
-		if (operation != null) {
+		if (operation!= null) {
 			if (operation.equals("product")) {
 				mv.addObject("message", "Product submitted Successfully!");
 
@@ -84,7 +84,7 @@ public class ManagementController {
 
 		logger.info(mProduct.toString());
 
-		// ceate a new product record
+		// create a new product record
 		productDAO.add(mProduct);
 
 		if (!mProduct.getFile().getOriginalFilename().equals("")) {
@@ -94,7 +94,7 @@ public class ManagementController {
 		return "redirect:/manage/products?operation=product";
 	}
 
-	// returning categries for all the request
+	// returning categories for all the request
 	@ModelAttribute("categories")
 	public List<Category> getCategories() {
 

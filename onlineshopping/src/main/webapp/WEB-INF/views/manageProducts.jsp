@@ -9,7 +9,7 @@
 			<div class="col-xs-12">
 				<div class="alert alert-sucess alert-dismissible">
 
-					<button type="button" class="close" data-dismiss="alert"></button>
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
 
 					${message}
 
@@ -32,6 +32,9 @@
 					</div>
 
 					<div class="panel-body">
+					
+					<!-- Form Elements -->
+					
 						<sf:form class="form-horizontal" modelAttribute="product"
 							action="${contextRoot}/manage/products" method="POST"
 							enctype="multipart/form-data">
@@ -94,27 +97,30 @@
 
 
 							<div class="form-group">
-								<label class="control-label col-md-4">Category</label>
+								<label class="control-label col-md-4">Select Category</label>
 								<div class="col-md-8">
-									<sf:select path="categoryId" items="${categories}"
-										itemLabel="name" itemValue="id" class="form-control" />
+									<sf:select class="form-control" path="categoryId" items="${categories}"
+										id="categoryId" itemLabel="name" itemValue="id"  />
 
-									<div class="text-right">
-										<br />
-										<sf:hidden path="id" />
-										<sf:hidden path="code" />
-										<sf:hidden path="supplierId" />
-										<sf:hidden path="active" />
-									</div>
+
 								</div>
 
 							</div>
 
 
 							<div class="form-group">
-								<div class="col-md-offset-4 col-md-4">
-									<input type="submit" name="submit" value="submit"
+								<div class="col-md-offset-4 col-md-8">
+									<input type="submit" name="submit" value="submit" id="submit"
 										class="btn btn-primary" />
+								<!-- Hidden fields for product -->
+									
+										<sf:hidden path="id" />
+										<sf:hidden path="code" />
+										<sf:hidden path="supplierId" />
+										<sf:hidden path="active"/>
+										<sf:hidden path="purchases"/>
+										<sf:hidden path="views" />
+									
 								</div>
 
 							</div>
