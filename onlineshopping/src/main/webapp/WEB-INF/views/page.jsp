@@ -23,19 +23,21 @@
 <title>Online shopping - ${title}</title>
 
 <script>
+
 	window.menu = '${title}';
-	
+
 	window.contextRoot = '${contextRoot}'
-	
+
 </script>
 
 <!-- Bootstrap Core CSS -->
+<link href="${css}/bootstrap.min.css" rel="stylesheet">
 
 <!--  Bootstrap Readable theme -->
 <link href="${css}/bootstrap-readable-theme.css" rel="stylesheet">
 
 <!--  Bootstrap DataTables theme -->
-<link href="${css}/dataTable.bootstrap.css" rel="stylesheet">
+<link href="${css}/dataTables.bootstrap.css" rel="stylesheet">
 
 
 <!-- Custom CSS -->
@@ -93,14 +95,18 @@
 				<%@include file="listProducts.jsp"%>
 
 			</c:if>
-			
+
 			<!-- Load only when user clicks Show Product -->
 
-			<c:if
-				test="${userClickShowProducts == true}">
+			<c:if test="${userClickShowProduct == true}">
 
 				<%@include file="singleProduct.jsp"%>
 
+			</c:if>
+
+			<!-- Load only when user clicks manage product -->
+			<c:if test="${userClickManageProducts == true}">
+				<%@include file="manageProducts.jsp"%>
 			</c:if>
 
 		</div>
@@ -116,13 +122,15 @@
 
 		<!-- Bootstrap Core JavaScript -->
 		<script src="${js}/bootstrap.min.js"></script>
-		
+
 		<!-- Data Table Plugin -->
 		<script src="${js}/jquery.dataTables.js"></script>
-		
+
 		<!-- DataTable Bootstrap Script -->
 		<script src="${js}/dataTables.bootstrap.js"></script>
-		
+
+		<!-- Bootbox -->
+		<script src="${js}/bootbox.min.js"></script>
 
 		<!-- Self Coded Java Script -->
 		<script src="${js}/myapp.js"></script>

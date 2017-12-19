@@ -33,55 +33,66 @@ public class ProductDAOImpl implements ProductDAO {
 
 	/*
 	 * LIST
-	 */
-
+	 * */
+	
 	@Override
 	public List<Product> list() {
-		return sessionFactory.getCurrentSession().createQuery("FROM Product", Product.class).getResultList();
+		return sessionFactory
+				.getCurrentSession()
+					.createQuery("FROM Product" , Product.class)
+						.getResultList();
 	}
 
 	/*
 	 * INSERT
-	 */
+	 * */
 	@Override
 	public boolean add(Product product) {
-		try {
-			sessionFactory.getCurrentSession().persist(product);
+		try {			
+			sessionFactory
+					.getCurrentSession()
+						.persist(product);
 			return true;
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
+		catch(Exception ex) {		
+			ex.printStackTrace();			
+		}		
 		return false;
 	}
 
 	/*
 	 * UPDATE
-	 */
+	 * */
 	@Override
 	public boolean update(Product product) {
-		try {
-			sessionFactory.getCurrentSession().update(product);
+		try {			
+			sessionFactory
+					.getCurrentSession()
+						.update(product);
 			return true;
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
-		return false;
+		catch(Exception ex) {		
+			ex.printStackTrace();			
+		}		
+		return false;		
 	}
 
+	
 	/*
 	 * DELETE
-	 */
+	 * */
 	@Override
 	public boolean delete(Product product) {
 		try {
-
+			
 			product.setActive(false);
 			// call the update method
 			return this.update(product);
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
-		return false;
+		catch(Exception ex) {		
+			ex.printStackTrace();			
+		}		
+		return false;			
 	}
 
 	@Override
@@ -101,8 +112,8 @@ public class ProductDAOImpl implements ProductDAO {
 				.getCurrentSession()
 					.createQuery(selectActiveProductsByCategory, Product.class)
 						.setParameter("active", true)
-							.setParameter("categoryId", categoryId)
-								.getResultList();
+						.setParameter("categoryId",categoryId)
+							.getResultList();
 	}
 
 	@Override
@@ -112,9 +123,9 @@ public class ProductDAOImpl implements ProductDAO {
 					.createQuery("FROM Product WHERE active = :active ORDER BY id", Product.class)
 						.setParameter("active", true)
 							.setFirstResult(0)
-								.setMaxResults(count)
-									.getResultList();
-
+							.setMaxResults(count)
+								.getResultList();					
 	}
+
 
 }

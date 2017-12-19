@@ -111,8 +111,11 @@ public class PageController {
 		 if(product == null) throw new ProductNotFoundException();
 
 		// update the view count
+		 
 		product.setViews(product.getViews() + 1);
+		
 		productDAO.update(product);
+		
 		// ---------------------------
 
 		mv.addObject("title", product.getName());

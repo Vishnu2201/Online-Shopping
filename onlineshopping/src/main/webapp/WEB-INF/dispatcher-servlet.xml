@@ -12,7 +12,7 @@
    ">
 	<context:component-scan base-package="vis.com.onlineshopping" />
 	<context:component-scan base-package="vis.com.shoppingbackend" />
-	
+
 
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -21,11 +21,16 @@
 		<property name="suffix" value=".jsp" />
 
 	</bean>
-	
+
+	<!-- id must be multipartResolver -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+
+
 	<!-- Loading static resources -->
 	<mvc:annotation-driven />
-	
+
 	<mvc:resources location="/assets/" mapping="/resources/**" />
-	
+
 
 </beans>

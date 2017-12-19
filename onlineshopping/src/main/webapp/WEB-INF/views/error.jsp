@@ -18,15 +18,8 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Online shopping - ${title}</title>
-
-<script>
-	window.menu = '${title}';
-
-	window.contextRoot = '${contextRoot}'
-</script>
-
 <!-- Bootstrap Core CSS -->
+<link href="${css}/bootstrap.min.css" rel="stylesheet">
 
 <!--  Bootstrap Readable theme -->
 <link href="${css}/bootstrap-readable-theme.css" rel="stylesheet">
@@ -34,9 +27,12 @@
 <!--  Bootstrap DataTables theme -->
 <link href="${css}/dataTable.bootstrap.css" rel="stylesheet">
 
-
 <!-- Custom CSS -->
 <link href="${css}/myapp.css" rel="stylesheet">
+
+<title>Online shopping - ${title}</title>
+
+
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
