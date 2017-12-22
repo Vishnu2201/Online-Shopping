@@ -12,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import vis.com.onlineshopping.util.FileUploadUtility;
@@ -28,6 +30,7 @@ import vis.com.shoppingbackend.dto.Product;
 @RequestMapping("/manage")
 public class ManagementController {
 
+	
 	@Autowired
 	private CategoryDAO categoryDAO;
 

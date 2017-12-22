@@ -24,7 +24,7 @@ public class FileUploadUtility {
 		logger.info(REAL_PATH);
 
 		// to make sure all the directory exists
-		// please creat the directories
+		// please create the directories
 		if (!new File(ABS_PATH).exists()) {
 
 			// create the directories
