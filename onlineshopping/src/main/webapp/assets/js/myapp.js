@@ -130,8 +130,6 @@ $(function() {
 	}
 	// --------------------
 
-	
-
 	// --------------------------------
 	// Data Table For Admin
 	// --------------------------------
@@ -168,8 +166,10 @@ $(function() {
 								bSortable : false,
 								mRender : function(data, type, row) {
 
-									return '<img src="' + window.contextRoot
-											+ '/resources/images/' + data
+									return '<img src="'
+											+ window.contextRoot
+											+ '/resources/images/'
+											+ data
 											+ '.jpg" class="adminDataTableImg"/>';
 
 								}
@@ -180,7 +180,7 @@ $(function() {
 							{
 								data : 'brand'
 							},
-							
+
 							{
 								data : 'quantity',
 								mRender : function(data, type, row) {
@@ -201,98 +201,172 @@ $(function() {
 							},
 							{
 								data : 'active',
-								bSortable: false,
-									mRender: function(data,type,row){
-										
-										var str='';
-										
-										
-										
-										
-										str += '<label class="switch">';
-										if(data) {
-											
-											str +=  '<input type="checkbox" checked="checked" value="'+row.id+'" />';
-											
-										}
-										else {
-											
-											str +=  '<input type="checkbox" value="'+row.id+'" />';
-											
-										}
-																										
-										
-										str +=  '<div class="slider"> </div></label>';
-										
-										return str;
-										
+								bSortable : false,
+								mRender : function(data, type, row) {
+
+									var str = '';
+
+									str += '<label class="switch">';
+									if (data) {
+
+										str += '<input type="checkbox" checked="checked" value="'
+												+ row.id + '" />';
+
+									} else {
+
+										str += '<input type="checkbox" value="'
+												+ row.id + '" />';
+
 									}
-																
-							
-								
+
+									str += '<div class="slider"> </div></label>';
+
+									return str;
+
+								}
 
 							},
 							{
-								data: 'id',
-								bSortable: false,
-								mRender: function(data, type, row) {
-									
+								data : 'id',
+								bSortable : false,
+								mRender : function(data, type, row) {
+
 									var str = '';
-									
-									str += '<a href="${contextRoot}/manage/'+data+'/product" class="btn btn-warning">';
+
+									str += '<a href="'
+											+ window.contextRoot
+											+ '/manage/'
+											+ data
+											+ '/product" class="btn btn-warning">';
 									str += '<span class="glyphicon glyphicon-pencil"></span></a>';
-									
+
 									return str;
-								
+
 								}
-								
+
 							}
-							
 
 					],
-					
-					initComplete: function() {
+
+					initComplete : function() {
 						var api = this.api;
-						api.$('.switch input[type="checkbox"]')
-						.on(
-								'change',
-								function() {
-									var checkbox = $(this);
-									var checked = checkbox.prop('checked');
+						api
+								.$('.switch input[type="checkbox"]')
+								.on(
+										'change',
+										function() {
+											var checkbox = $(this);
+											var checked = checkbox
+													.prop('checked');
 
-									var dMsg = (checked) ? 'You want to activate the Product?'
-											: 'You want to de-activate the Product?';
-									var value = checkbox.prop('value');
-									bootbox
-											.confirm({
-												size : 'medium',
-												title : 'Product Activation & Deactivation',
-												message : dMsg,
-												callback : function(confirmed) {
-													if (confirmed) {
+											var dMsg = (checked) ? 'You want to activate the Product?'
+													: 'You want to de-activate the Product?';
+											var value = checkbox.prop('value');
+											bootbox
+													.confirm({
+														size : 'medium',
+														title : 'Product Activation & Deactivation',
+														message : dMsg,
+														callback : function(
+																confirmed) {
+															if (confirmed) {
 
-														console.log(value);
-														bootbox
-																.alert({
-																	size : 'medium',
-																	title : 'Information',
-																	message : 'You r going to perform operation on product'
-																			+ value
+																console
+																		.log(value);
 
-																});
-													} else {
-														checkbox.prop('checked', !checked);
-													}
-												}
-											});
-								});
+																var activationUrl = window.contextRoot
+																		+ '/manage/product/'
+																		+ value
+																		+ '/activation';
+
+																$
+																		.post(
+																				activationUrl,
+																				function(
+																						data) {
+
+																					bootbox
+																							.alert({
+																								size : 'medium',
+																								title : 'Information',
+																								message : data
+
+																							});
+																				});
+
+															} else {
+																checkbox
+																		.prop(
+																				'checked',
+																				!checked);
+															}
+														}
+													});
+										});
 					}
-					
+
+				});
+
+	}
+
+	// -------------------------------------
+
+	// validation code for category
+
+	var $categoryForm = $('#categoryForm');
+	
+	if ($categoryForm.length) {
+
+		$categoryForm.validate({
+
+					rules : {
+
+						name : {
+
+							required : true,
+							minlength : 2
+
+						},
+
+						description : {
+
+							required : true
+
+						}
+
+					},
+
+					messages : {
+
+						name : {
+
+							required : 'Please add the category name!',
+							minlength : 'The category nam should not be less than 2 characters'
+
+						},
+
+						description : {
+
+							required : 'Please add a description for this category!'
+
+						}
+
+					},
+					errorElement : 'em',
+					errorPlacement : function(error, element) {
+
+						// add the class of help-block
+						error.addClass('help-block');
+						// add the error element after the input element
+						error.insertAfter(element);
+
+					}
 
 				});
 
 	}
 	
-	//-------------------------------------
+	//---------------------------------------
+	
 
 });

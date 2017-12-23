@@ -30,7 +30,6 @@ import vis.com.shoppingbackend.dto.Product;
 @RequestMapping("/manage")
 public class ManagementController {
 
-	
 	@Autowired
 	private CategoryDAO categoryDAO;
 
@@ -54,13 +53,34 @@ public class ManagementController {
 
 		mv.addObject("product", nProduct);
 
-		if (operation!= null) {
+		if (operation != null) {
 			if (operation.equals("product")) {
 				mv.addObject("message", "Product submitted Successfully!");
 
 			}
-
+			else if(operation.equals("category")) {
+				
+				mv.addObject("message", "Category Submitted Successfully! ");
+				
+			}
 		}
+
+		return mv;
+
+	}
+
+	@RequestMapping(value = "/{id}/product", method = RequestMethod.GET)
+	public ModelAndView showEditProducts(@PathVariable int id) {
+
+		ModelAndView mv = new ModelAndView("page");
+
+		mv.addObject("userClickManageProducts", true);
+		mv.addObject("title", "Manage Products");
+
+		// fetch the data from the database
+		Product nProduct = productDAO.get(id);
+		// set the product fetched from database
+		mv.addObject("product", nProduct);
 
 		return mv;
 
@@ -71,11 +91,15 @@ public class ManagementController {
 	public String handleProductSubmission(@Valid @ModelAttribute("product") Product mProduct, BindingResult results,
 			Model model, HttpServletRequest request) {
 
-		new ProductValidator().validate(mProduct, results);
-		
-		
-		
+		// handle image validation for new product
+		if (mProduct.getId() == 0) {
+			new ProductValidator().validate(mProduct, results);
+		} else {
+			if (!mProduct.getFile().getOriginalFilename().equals("")) {
+				new ProductValidator().validate(mProduct, results);
 
+			}
+		}
 		// check if there are any errors
 		if (results.hasErrors()) {
 
@@ -88,7 +112,14 @@ public class ManagementController {
 		logger.info(mProduct.toString());
 
 		// create a new product record
-		productDAO.add(mProduct);
+		if (mProduct.getId() == 0) {
+			// create a new product record if the id is 0
+			productDAO.add(mProduct);
+		} else {
+			// update the product if id is not 0
+			productDAO.update(mProduct);
+
+		}
 
 		if (!mProduct.getFile().getOriginalFilename().equals("")) {
 			FileUploadUtility.uploadFile(request, mProduct.getFile(), mProduct.getCode());
@@ -97,6 +128,31 @@ public class ManagementController {
 		return "redirect:/manage/products?operation=product";
 	}
 
+	@RequestMapping(value = "/product/{id}/activation", method = RequestMethod.POST)
+	@ResponseBody
+	public String handleProductActivation(@PathVariable int id) {
+		// is going to fetch the product fro the database
+		Product product = productDAO.get(id);
+		// activating and deactivating based o the value of the active field
+		boolean isActive = product.isActive();
+		// updating the product
+		product.setActive(!product.isActive());
+ 
+		return (isActive) ? "You have succesfully deactivated the product with id " + product.getId()
+				: "You have succesfully activated the product with id " + product.getId();
+	}
+	// to handle category submission
+
+	@RequestMapping(value = "/category", method=RequestMethod.POST)
+	public String handleCategorySubmission(@ModelAttribute Category category) {
+		
+		categoryDAO.add(category);
+		
+		return "redirect:/manage/products?operation=category";
+		
+	}
+	
+
 	// returning categories for all the request
 	@ModelAttribute("categories")
 	public List<Category> getCategories() {
@@ -104,4 +160,10 @@ public class ManagementController {
 		return categoryDAO.list();
 
 	}
+
+	@ModelAttribute("category")
+	public Category getCategory() {
+		return new Category();
+	}
+
 }
