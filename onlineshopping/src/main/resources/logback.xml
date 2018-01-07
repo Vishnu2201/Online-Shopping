@@ -7,13 +7,13 @@
 		</encoder>
 	</appender>
 
-
-	<logger name="vis.com" level="DEBUG" additivity="false">
-		<appender-ref ref="consoleAppender" />
-	</logger>
+	
+	<logger name="vis.com" level="DEBUG" additivity = "false">
+		<appender-ref ref="consoleAppender"/>	
+	</logger>	
 
 	<root level="INFO">
-		<appender-ref ref="consoleAppender" />
+		<appender-ref ref="consoleAppender"/>
 	</root>
 
 </configuration>

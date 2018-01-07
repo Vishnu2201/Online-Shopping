@@ -31,10 +31,12 @@
 
 			<ul class="navbar-nav navbar-right">
 
-				<li id="register"><a class="nav-link"
-					href="${contextRoot}/register">Sign Up</a></li>
-				<li id="login"><a class="nav-link"
-					href="${contextRoot}/login">Login</a></li>
+				<li id="register">
+				<a href="${contextRoot}/register">Sign Up</a>
+				</li>
+				<li id="login">
+				<a href="${contextRoot}/login">Login</a>
+				</li>
 
 			</ul>
 		</div>

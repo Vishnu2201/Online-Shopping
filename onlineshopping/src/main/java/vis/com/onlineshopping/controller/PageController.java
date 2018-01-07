@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import vis.com.onlineshopping.exception.ProductNotFoundException;
@@ -16,7 +17,7 @@ import vis.com.shoppingbackend.dto.Product;
 
 @Controller
 public class PageController {
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(PageController.class);
 
 	@Autowired
@@ -29,7 +30,6 @@ public class PageController {
 	public ModelAndView index() {
 		ModelAndView mv = new ModelAndView("page");
 		mv.addObject("title", "Home");
-		
 
 		logger.info("Inside PageController index method - INFO");
 		logger.debug("Inside PageController index method - DEBUG");
@@ -108,14 +108,15 @@ public class PageController {
 
 		Product product = productDAO.get(id);
 
-		 if(product == null) throw new ProductNotFoundException();
+		if (product == null)
+			throw new ProductNotFoundException();
 
 		// update the view count
-		 
+
 		product.setViews(product.getViews() + 1);
-		
+
 		productDAO.update(product);
-		
+
 		// ---------------------------
 
 		mv.addObject("title", product.getName());
@@ -125,4 +126,33 @@ public class PageController {
 
 		return mv;
 	}
+
+	/* Having Similar Maping to our flow id */
+	@RequestMapping(value = "/register")
+	public ModelAndView register() {
+		ModelAndView mv = new ModelAndView("page");
+		mv.addObject("title", "About Us");
+
+		return mv;
+	}
+
+	/* Login */
+	@RequestMapping(value = "/login")
+	public ModelAndView login(@RequestParam(name="error", required= false)String error) {
+		ModelAndView mv = new ModelAndView("login");
+		
+		if(error!=null) {
+			mv.addObject("message", "Invalid Username and Password!");
+		}
+		
+//		if(logout!=null) {
+//			mv.addObject("message", "user has Successfully Logout!");
+//		}
+		
+		
+		mv.addObject("title", "Login");
+
+		return mv;
+	}
+
 }

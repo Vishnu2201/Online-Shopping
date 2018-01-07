@@ -2,41 +2,67 @@ package vis.com.shoppingbackend.dto;
 
 
 
-import static org.junit.Assert.assertEquals;
+import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "user_detail")
-public class User{
 
+public class User implements Serializable{
+
+	/*
+	 * 
+	 * */
+	
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Private fields for user
 	 */
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;	
-	@Column(name = "first_name")
-	private String firstName;	
+	private int id;
+	@NotBlank(message = "Please enter first name!")
+	@Column(name = "first_name") 
+	private String firstName;
+	@NotBlank(message = "Please enter last name!")
 	@Column(name = "last_name")
-	private String lastName;	
-	private String email;	
+	private String lastName;
+	@NotBlank(message = "Please enter email address!")	
+	private String email;
+	@NotBlank(message = "Please enter contact number!")
 	@Column(name = "contact_number")
 	private String contactNumber;
-	private String role;	
+	private String role;
+	@NotBlank(message = "Please enter password!")
 	private String password;
 	private boolean enabled = true;
 	
+	// confirm password transient field
+	@Transient
+	private String confirmPassword;
+	
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 	//------------------------
-	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Cart cart;
 	
 	

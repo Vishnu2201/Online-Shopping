@@ -1,22 +1,21 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" 
-	xmlns:wf="http://www.springframework.org/schema/webflow-config"
-
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:wf="http://www.springframework.org/schema/webflow-config"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
-     http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context.xsd  
-     http://www.springframework.org/schema/mvc
-    http://www.springframework.org/schema/mvc/spring-mvc.xsd      
-     http://www.springframework.org/schema/webflow-config
-    http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd      
+ 	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+   	http://www.springframework.org/schema/context/spring-context.xsd
+   	http://www.springframework.org/schema/mvc
+   	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+   	http://www.springframework.org/schema/webflow-config
+   	http://www.springframework.org/schema/webflow-config/spring-webflow-config.xsd
    
-   ">
-	<context:component-scan base-package="vis.com.onlineshopping" />
-	<context:component-scan base-package="vis.com.shoppingbackend" />
+   	
+   	">
+
+	<context:component-scan base-package="vis.com.onlineshopping.controller" />
 
 
 	<bean id="viewResolver"
@@ -25,22 +24,25 @@
 		<property name="prefix" value="/WEB-INF/views/" />
 		<property name="suffix" value=".jsp" />
 
+		<!-- id must be multipart part resolver -->
 	</bean>
 
-	<!-- id must be multipartResolver -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
 
 
-	<!-- Loading static resources -->
+
+	<!-- loading static resources -->
+
 	<mvc:annotation-driven />
 
 	<mvc:resources location="/assets/" mapping="/resources/**" />
 
-	<!-- Webflow CONFIRGURATION -->
+
+	<!-- WEBFLOW CONFIGURATION -->
 	<!-- Entry point for the flow -->
 
-	<wf:flow-executor id="flowExecutor" />
+	<wf:flow-executor id="flowExecutor" flow-registry="flowRegistry" />
 
 	<wf:flow-registry id="flowRegistry" base-path="/WEB-INF/views/flows"
 		flow-builder-services="flowBuilderServices">
@@ -48,7 +50,7 @@
 	</wf:flow-registry>
 
 	<wf:flow-builder-services id="flowBuilderServices"
-		view-factory-creator="viewFactoryCreator" />
+		view-factory-creator="viewFactoryCreator" validator="validator" />
 
 	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
 		<property name="flowExecutor" ref="flowExecutor" />
@@ -56,13 +58,20 @@
 
 	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
 		<property name="flowRegistry" ref="flowRegistry" />
+		<property name="order" value="-1" />
 	</bean>
 
 	<bean id="viewFactoryCreator"
 		class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+
 		<property name="viewResolvers" ref="viewResolver" />
-			
 	</bean>
+
+	<!-- validator bean -->
+
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
 
 
 

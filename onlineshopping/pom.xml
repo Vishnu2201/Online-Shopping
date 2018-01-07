@@ -14,16 +14,20 @@
 		<spring.security.version>4.2.2.RELEASE</spring.security.version>
 	</properties>
 
+
+
 	<dependencies>
 
-		<!-- Link Backend project -->
+		<!-- Link backend project -->
 		<dependency>
+
 			<groupId>vis.com</groupId>
 			<artifactId>shoppingbackend</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+
 		</dependency>
 
-		<!--JAVA EE API -->
+		<!-- javaee api -->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
@@ -32,7 +36,9 @@
 		</dependency>
 
 
-		<!-- JUNIT -->
+
+		<!-- junit -->
+
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -43,22 +49,21 @@
 
 		<!-- spring -->
 
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
-
 			<exclusions>
-
 				<exclusion>
-
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
-
 				</exclusion>
-
 			</exclusions>
 		</dependency>
+
+
+
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -66,7 +71,7 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-		<!-- JSTL -->
+		<!-- jstl -->
 
 		<dependency>
 			<groupId>jstl</groupId>
@@ -74,24 +79,36 @@
 			<version>1.2</version>
 		</dependency>
 
-		<!-- Spring webflow -->
-
+		<!-- https://mvnrepository.com/artifact/org.springframework.webflow/spring-webflow -->
 		<dependency>
 			<groupId>org.springframework.webflow</groupId>
 			<artifactId>spring-webflow</artifactId>
 			<version>2.4.4.RELEASE</version>
 		</dependency>
 
+		<!-- Spring security -->
 		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.2</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+
 
 	</dependencies>
 	<build>
-
-
 		<plugins>
 			<!-- update to latest version of java -->
 			<plugin>
@@ -104,8 +121,16 @@
 				</configuration>
 
 			</plugin>
+
+
+
+
 		</plugins>
+
+
+
 
 		<finalName>onlineshopping</finalName>
 	</build>
 </project>
+	
